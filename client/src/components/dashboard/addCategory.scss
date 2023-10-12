@@ -1,0 +1,43 @@
+.add-category {
+    .added {
+        background-color: #fff;
+        padding: 15px;
+        box-shadow: 0 0 0 0 rgba(90, 113, 208, 0.11), 0 4px 16px 0 rgba(167, 175, 183, 0.83);
+        border: 1px solid rgba(234, 236, 238, 0.83);
+
+        form {
+            .form-group {
+                .form-control {
+                    margin: 4px 0px;
+                }
+
+                p.error {
+                    color: red;
+                }
+
+                .btn {
+                    background-color: #1d244e;
+                    color: #fff;
+
+                    &:hover {
+                        background-color: #181f46;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.productImgStyle {
+    width: 40px;
+    height: auto;
+}
+
+.searchInput {
+    display: flex;
+    border: 0.5px solid lightgray;
+    outline: none;
+    padding: 4px;
+    border-radius: 5px;
+    margin-left: 50px;
+}
