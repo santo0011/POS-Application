@@ -32,8 +32,22 @@ const categoryImgMoveFunc = () => {
 
 
 // ====================== categoryDeleteFunction ========================
-const categoryDeleteFunction = (categoryImage) => {
+const tempImageRemove = (categoryImage) => {
     const directory = `./uploads/temp/${categoryImage}`;
+    fs.remove(directory, (err) => {
+        if (err) {
+            console.error('Error deleting file:', err);
+        } else {
+            console.log('File removed form temp');
+        }
+    });
+}
+
+
+// ====================== allFileDeleteFunction ========================
+const categoryDeleteFunction = (delteCataId) => {
+    const directory = `./uploads/categoryImg/${delteCataId}`;
+
     fs.remove(directory, (err) => {
         if (err) {
             console.error('Error deleting file:', err);
@@ -44,8 +58,8 @@ const categoryDeleteFunction = (categoryImage) => {
 }
 
 
-
 module.exports = {
     categoryImgMoveFunc,
+    tempImageRemove,
     categoryDeleteFunction
 }

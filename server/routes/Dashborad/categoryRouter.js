@@ -10,6 +10,11 @@ router.post('/add-category', admin_middleware, upload.single('categoryImage'), c
 
 router.get('/get-category', admin_middleware, categoryController.category_get);
 
+router.delete('/delete-category/:categoryId', admin_middleware, categoryController.category_delete);
+
+router.get('/edit-category/:cateSlug', admin_middleware, categoryController.category_edit);
+
+router.put('/update-category', admin_middleware, upload.single('categoryImage'), categoryController.category_update);
 
 
 module.exports = router;

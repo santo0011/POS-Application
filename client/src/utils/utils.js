@@ -6,3 +6,9 @@ export const overrideStyle = {
     justifyContent: 'center',
     alignItems: "center"
 }
+
+
+export const clipLoaderStyle = {
+    display: 'flex',
+    margin: '80px auto',
+}

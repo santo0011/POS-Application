@@ -32,6 +32,48 @@ export const get_all_category = createAsyncThunk(
 )
 
 
+// delete_category
+export const delete_category = createAsyncThunk(
+    'category/delete_category',
+    async (id, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.delete(`/delete-category/${id}`);
+            return fulfillWithValue(data)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+)
+
+
+// edit_category
+export const edit_category = createAsyncThunk(
+    'category/edit_category',
+    async (cateSlug, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.get(`/edit-category/${cateSlug}`);
+            return fulfillWithValue(data)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+)
+
+
+// update_category
+export const update_category = createAsyncThunk(
+    'category/update_category',
+    async (info, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.put(`/update-category`, info);
+            return fulfillWithValue(data)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+)
+
+
 
 export const categoryReducer = createSlice({
     name: 'category',
@@ -41,6 +83,7 @@ export const categoryReducer = createSlice({
         loader: false,
         allCategory: [],
         categoryCount: 0,
+        editCategory: {}
     },
     reducers: {
         messageClear: (state, _) => {
@@ -59,14 +102,28 @@ export const categoryReducer = createSlice({
         [add_category.fulfilled]: (state, { payload }) => {
             state.loader = false
             state.successMessage = payload.message
+            state.allCategory = [...state.allCategory, payload.category]
+            state.categoryCount = state.categoryCount + 1
+        },
+        [get_all_category.pending]: (state, _) => {
+            state.loader = true
         },
         [get_all_category.fulfilled]: (state, { payload }) => {
             state.allCategory = payload.allCategory
             state.categoryCount = payload.categoryCount
+            state.loader = false
         },
+        [delete_category.fulfilled]: (state, { payload }) => {
+            state.successMessage = payload.message
+        },
+        [edit_category.fulfilled]: (state, { payload }) => {
+            state.editCategory = payload.editCategory
+        },
+        [update_category.fulfilled]: (state, { payload }) => {
+            state.successMessage = payload.message
+        }
     }
 });
-
 
 
 export const { messageClear } = categoryReducer.actions;
