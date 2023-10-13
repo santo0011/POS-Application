@@ -119,8 +119,12 @@ export const categoryReducer = createSlice({
         [edit_category.fulfilled]: (state, { payload }) => {
             state.editCategory = payload.editCategory
         },
+        [update_category.pending]: (state, _) => {
+            state.loader = true
+        },
         [update_category.fulfilled]: (state, { payload }) => {
             state.successMessage = payload.message
+            state.loader = false
         }
     }
 });

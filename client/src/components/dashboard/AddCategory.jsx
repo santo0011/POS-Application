@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Layout from '../layout/Layout';
 import Helmet from 'react-helmet';
 import "./addCategory.scss";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import EditCalendarOutlinedIcon from '@mui/icons-material/EditCalendarOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Pagination from '../Pagination';
@@ -21,6 +21,7 @@ import { confirmMessagge } from '../../utils/aleartFunc';
 const AddCategory = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { cateSlug } = useParams();
 
     const { loader, errorMessage, successMessage, allCategory, categoryCount, editCategory } = useSelector(state => state.category);
@@ -121,6 +122,7 @@ const AddCategory = () => {
             setCateImage("")
             setCateName("")
             dispatch(get_all_category(obj))
+            navigate('/add-category', { replace: true })
         }
     }, [errorMessage, successMessage])
 
