@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Products from './components/dashboard/Products';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import EmailVerify from './components/auth/EmailVerify';
 import ProtectRoute from './components/auth/ProtectRoute';
-import AddCategory from './components/dashboard/AddCategory';
+import AddCategory from './components/category/AddCategory';
+import AddProduct from './components/product/AddProduct';
+import AllProduct from './components/product/AllProduct';
+import { useDispatch } from 'react-redux';
 
 
 const App = () => {
+
     return (
         <>
             <Routes>
@@ -19,9 +22,10 @@ const App = () => {
 
                 <Route path='/' element={<ProtectRoute />} >
                     <Route path='' element={<Home />} />
-                    <Route path='all-product' element={<Products />} />
                     <Route path='add-category' element={<AddCategory />} />
                     <Route path='edit-category/:cateSlug' element={<AddCategory />} />
+                    <Route path='all-product' element={<AllProduct />} />
+                    <Route path='add-product' element={<AddProduct />} />
 
                 </Route>
 
