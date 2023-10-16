@@ -39,7 +39,6 @@ class categoryController {
         }
     }
 
-
     // category_get
     category_get = async (req, res) => {
         const { adminId } = req;

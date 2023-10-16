@@ -3,8 +3,12 @@ import Layout from '../layout/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { get_all_category } from '../../store/Reducers/categoryReducer';
-import { add_product } from '../../store/Reducers/productAddReducer';
+import { add_product, messageClear } from '../../store/Reducers/productAddReducer';
 import toast from "react-hot-toast";
+import { PropagateLoader } from 'react-spinners';
+import { overrideStyle } from '../../utils/utils';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -12,7 +16,10 @@ const AddProduct = () => {
 
     const cateSlug = false;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const { allCategory } = useSelector(state => state.category);
+    const { loader, successMessage, errorMessage } = useSelector(state => state.product);
 
     const [options, setOptions] = useState([]);
     const [showImage, setShowImage] = useState("")
@@ -85,6 +92,21 @@ const AddProduct = () => {
         }
 
     }
+
+
+    useEffect(() => {
+
+        if (errorMessage) {
+            toast.error(errorMessage)
+            dispatch(messageClear())
+        }
+        if (successMessage) {
+            toast.success(successMessage)
+            dispatch(messageClear())
+            navigate('/all-product', { replace: true })
+        }
+
+    }, [successMessage, errorMessage])
 
 
     useEffect(() => {
@@ -166,7 +188,20 @@ const AddProduct = () => {
                         }
 
                         <div className='p-3 '>
-                            <button className='btn btn-dark w-100'>Add Product</button>
+
+                            <button
+                                disabled={loader ? true : false}
+                                className="btn btn-dark w-100"
+                            >
+                                {loader ? (
+                                    <PropagateLoader
+                                        color="#fff"
+                                        cssOverride={overrideStyle}
+                                    />
+                                ) : (
+                                    <> {cateSlug ? 'Edit Product' : 'Add Product'}</>
+                                )}
+                            </button>
                         </div>
 
                     </form>

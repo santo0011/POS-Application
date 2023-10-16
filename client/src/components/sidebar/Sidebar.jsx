@@ -15,6 +15,8 @@ import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import AddIcon from '@mui/icons-material/Add';
 import CategoryIcon from '@mui/icons-material/Category';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+
 
 
 const Sidebar = () => {
@@ -51,10 +53,10 @@ const Sidebar = () => {
               <span>Product</span>
             </li>
           </Link>
-          <Link to="/hotels" style={{ textDecoration: "none" }}>
+          <Link to="/cart-page" style={{ textDecoration: "none" }}>
             <li>
-              <StoreIcon className="icon" />
-              <span>Hotels</span>
+              <AiOutlineShoppingCart />
+              <span>Cart</span>
             </li>
           </Link>
           <Link to="/rooms" style={{ textDecoration: "none" }}>

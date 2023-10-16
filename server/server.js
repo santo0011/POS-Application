@@ -23,6 +23,7 @@ app.use("/uploads", express.static("./uploads"));
 app.use('/api', require('./routes/authRoutes'));
 app.use('/api', require('./routes/Dashborad/categoryRouter'));
 app.use('/api', require('./routes/Dashborad/productRoute'));
+app.use('/api', require('./routes/Dashborad/cartRouter'));
 
 
 

@@ -58,8 +58,41 @@ const categoryDeleteFunction = (delteCataId) => {
 }
 
 
+
+// ====================== productImgMoveFunc ========================
+const productImgMoveFunc = () => {
+
+    const sourceDirectory = `./uploads/temp`;
+    const destinationDirectory = `./uploads/productImg`;
+
+    fs.readdir(sourceDirectory, (err, files) => {
+        if (err) {
+            console.error('Error reading source directory:', err);
+            return;
+        }
+
+        files.forEach(file => {
+            const sourcePath = `${sourceDirectory}/${file}`;
+            const destinationPath = `${destinationDirectory}/${file}`;
+
+            fs.move(sourcePath, destinationPath, err => {
+                if (err) {
+                    console.error(`Error moving file ${file}:`, err);
+                } else {
+                    console.log(`File moved successfully`);
+                }
+            });
+        });
+
+
+    });
+}
+
+
+
 module.exports = {
     categoryImgMoveFunc,
     tempImageRemove,
-    categoryDeleteFunction
+    categoryDeleteFunction,
+    productImgMoveFunc
 }

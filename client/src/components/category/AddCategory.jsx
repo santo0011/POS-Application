@@ -150,9 +150,9 @@ const AddCategory = () => {
     return (
         <Layout>
             <div className='all-category m-3'>
-                <Helmet>
+                {/* <Helmet>
                     <title>{!cateSlug ? "Category add" : "Category edit"}</title>
-                </Helmet>
+                </Helmet> */}
 
                 <div className="container-fluid">
 

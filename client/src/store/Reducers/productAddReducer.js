@@ -10,10 +10,6 @@ export const add_product = createAsyncThunk(
     async (info, { rejectWithValue, fulfillWithValue }) => {
         try {
             const { data } = await api.post('/add-product', info);
-
-            console.log(data)
-
-
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -22,12 +18,30 @@ export const add_product = createAsyncThunk(
 )
 
 
+
+// get_products
+export const get_products = createAsyncThunk(
+    'product/get_products',
+    async ({ searchValue, page, parPage }, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.get(`/get-products?searchValue=${searchValue}&&page=${page}&&parPage=${parPage}`);
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+
+
 export const productAddReducer = createSlice({
     name: "product",
     initialState: {
         errorMessage: '',
         successMessage: '',
-        loader: false
+        loader: false,
+        allProduct: [],
+        productCount: 0
     },
     reducers: {
         messageClear: (state, _) => {
@@ -36,10 +50,29 @@ export const productAddReducer = createSlice({
         }
     },
     extraReducers: {
-
+        [add_product.pending]: (state, _) => {
+            state.loader = true
+        },
+        [add_product.rejected]: (state, { payload }) => {
+            state.loader = false
+            state.errorMessage = payload.error
+        },
+        [add_product.fulfilled]: (state, { payload }) => {
+            state.loader = false
+            state.successMessage = payload.message
+        },
+        [get_products.pending]: (state, _) => {
+            state.loader = true
+        },
+        [get_products.fulfilled]: (state, { payload }) => {
+            state.loader = false
+            state.allProduct = payload.allProduct
+            state.productCount = payload.productCount
+        },
     }
 
 });
+
 
 
 export const { messageClear } = productAddReducer.actions;

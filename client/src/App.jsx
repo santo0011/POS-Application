@@ -9,6 +9,7 @@ import AddCategory from './components/category/AddCategory';
 import AddProduct from './components/product/AddProduct';
 import AllProduct from './components/product/AllProduct';
 import { useDispatch } from 'react-redux';
+import Cart from './components/cart/Cart';
 
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
                     <Route path='edit-category/:cateSlug' element={<AddCategory />} />
                     <Route path='all-product' element={<AllProduct />} />
                     <Route path='add-product' element={<AddProduct />} />
+                    <Route path='cart-page' element={<Cart />} />
 
                 </Route>
 
