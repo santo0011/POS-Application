@@ -1,0 +1,116 @@
+.invoiceHead {
+    font-size: 14px;
+    font-weight: 400px !important;
+}
+
+.invoiceList {
+    font-size: 14px;
+    font-weight: unset;
+    padding: 16px 0 !important;
+}
+
+.invoiceTr th {
+    // background: #878787 !important;
+}
+
+/*     background: rgb(237, 237, 237);
+ */
+
+.billContainer {
+    width: 450px;
+    height: auto;
+    background: linear-gradient(150deg, rgba(202, 208, 213, 1) 12%, rgba(248, 249, 250, 1) 63%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    overflow-x: hidden;
+}
+
+
+.billWrapper {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+}
+
+.billHeader {
+    text-align: center;
+}
+
+.billHeader img {
+    width: 40px;
+    height: 40px;
+}
+
+
+.billHeader h6 {
+    font-size: 15px;
+    font-weight: 700;
+    padding-top: 5px;
+}
+
+.billHeader p {
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 0 !important;
+}
+
+.hrStyle {
+    margin: 10px 0 !important;
+}
+.hrStyle2 {
+    margin: 4px 0 !important;
+}
+
+.billContact p {
+    margin: 2px 0;
+    font-size: 11px;
+}
+
+.billContact span {
+    font-weight: bold;
+}
+
+.billHead th {
+    font-size: 9px !important;
+    padding: 4px 0 !important;
+    background: #f2f2f2;
+}
+
+.billBody th {
+    font-size: 9px !important;
+    padding: 4px 0 !important;
+}
+
+.printBtn {
+    margin-left: auto !important;
+    margin-top: 20px;
+}
+
+.printBtn button {
+    width: 60px;
+    border: none;
+    background-color: #3081ea;
+    border-radius: 4px;
+    color: #fff;
+    padding: 3px 0;
+    margin-left: 10px;
+}
+
+.priceCalculateStyle {
+    text-align: right !important;
+}
+
+.priceCalculateStyle p {
+    margin: 2px 0;
+    font-size: 11px;
+}
+
+.priceCalculateStyle span {
+    font-weight: bold;
+}

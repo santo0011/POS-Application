@@ -58,7 +58,6 @@ const AllProduct = () => {
 
 
 
-
     useEffect(() => {
         const obj = {
             parPage: parseInt(parPage),

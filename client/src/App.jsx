@@ -10,6 +10,8 @@ import AddProduct from './components/product/AddProduct';
 import AllProduct from './components/product/AllProduct';
 import { useDispatch } from 'react-redux';
 import Cart from './components/cart/Cart';
+import Bill from './pages/Bill';
+import Customer from './pages/Customer';
 
 
 const App = () => {
@@ -28,6 +30,9 @@ const App = () => {
                     <Route path='all-product' element={<AllProduct />} />
                     <Route path='add-product' element={<AddProduct />} />
                     <Route path='cart-page' element={<Cart />} />
+
+                    <Route path='bills' element={<Bill />} />
+                    <Route path='customers' element={<Customer />} />
 
                 </Route>
 

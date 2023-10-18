@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { get_cart_products, messageClear, quantity_dec, quantity_inc, remove_form_cart } from '../../store/Reducers/cartReducer';
 import { base_url } from '../../api/api';
 import toast from "react-hot-toast";
-
-
+import CartDetails from './CartDetails';
 
 
 const Cart = () => {
@@ -107,18 +106,11 @@ const Cart = () => {
 
                         </div>
                         <div className="col-lg-5">
-
-                            <div className='px-3 py-2 priceDetailsStyle'>
-                                <h5>Price Details</h5>
-                                <hr className='hrStyle' />
-
-                                <div style={{ display: 'flex', justifyContent: "space-between" }}>
-                                    <p style={{ fontWeight: "700" }}>Total price ({card_product_count} items)</p>
-                                    <p>₹ {price}</p>
-                                </div>
-
-                            </div>
-
+                            <CartDetails
+                                card_product_count={card_product_count}
+                                price={price}
+                                cart_products={cart_products}
+                            />
                         </div>
                     </div>
 
@@ -128,7 +120,6 @@ const Cart = () => {
         </Layout>
     )
 }
-
 
 
 export default Cart;
