@@ -48,6 +48,51 @@ export const user_login = createAsyncThunk(
 )
 
 
+// add_customer_profile
+export const add_customer_profile = createAsyncThunk(
+    'auth/add_customer_profile',
+    async (info, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.post('/add-customer-profile', info);
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+
+// update_customer_profile
+export const update_customer_profile = createAsyncThunk(
+    'auth/update_customer_profile',
+    async (info, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.put('/update-customer-profile', info);
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+
+
+
+// get_customer_profile
+export const get_customer_profile = createAsyncThunk(
+    'auth/get_customer_profile',
+    async (_, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.get('/get-customer-profile');
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+
+
 const decodeToken = (token) => {
     if (token) {
         const decodeToken = jwt(token)
@@ -71,7 +116,8 @@ export const authReducer = createSlice({
         userInfo: decodeToken(localStorage.getItem('pos_token')),
         errorMessage: '',
         successMessage: '',
-        loader: false
+        loader: false,
+        profile: {}
     },
     reducers: {
         messageClear: (state, _) => {
@@ -117,9 +163,27 @@ export const authReducer = createSlice({
             state.authenticate = true
             state.successMessage = payload.message
             state.userInfo = decodeToken(payload.token)
+        },
+        [add_customer_profile.pending]: (state, _) => {
+            state.loader = true
+        },
+        [add_customer_profile.rejected]: (state, { payload }) => {
+            state.loader = false
+            state.errorMessage = payload.error
+        },
+        [add_customer_profile.fulfilled]: (state, { payload }) => {
+            state.loader = false
+            state.successMessage = payload.message
+        },
+        [get_customer_profile.fulfilled]: (state, { payload }) => {
+            state.profile = payload.profile
+        },
+        [update_customer_profile.fulfilled]: (state, { payload }) => {
+            state.successMessage = payload.message
         }
     }
 });
+
 
 
 export const { messageClear } = authReducer.actions;

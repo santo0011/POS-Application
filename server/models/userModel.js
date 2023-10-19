@@ -29,6 +29,10 @@ const userSchema = new Schema({
     accessStatus: {
         type: String,
         default: 'unblock'
+    },
+    profileStatus: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true })
 

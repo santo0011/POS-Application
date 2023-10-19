@@ -103,10 +103,57 @@ const productDeleteFunction = (delteCataId) => {
 }
 
 
+
+// ====================== profleImgMoveFunc ========================
+const profleImgMoveFunc = () => {
+
+    const sourceDirectory = `./uploads/temp`;
+    const destinationDirectory = `./uploads/profileImg`;
+
+    fs.readdir(sourceDirectory, (err, files) => {
+        if (err) {
+            console.error('Error reading source directory:', err);
+            return;
+        }
+
+        files.forEach(file => {
+            const sourcePath = `${sourceDirectory}/${file}`;
+            const destinationPath = `${destinationDirectory}/${file}`;
+
+            fs.move(sourcePath, destinationPath, err => {
+                if (err) {
+                    console.error(`Error moving file ${file}:`, err);
+                } else {
+                    console.log(`File moved successfully`);
+                }
+            });
+        });
+
+
+    });
+}
+
+
+// ====================== productDeleteFunction ========================
+const profileDeleteFunction = (delteCataId) => {
+    const directory = `./uploads/profileImg/${delteCataId}`;
+
+    fs.remove(directory, (err) => {
+        if (err) {
+            console.error('Error deleting file:', err);
+        } else {
+            console.log('File deleted successfully');
+        }
+    });
+}
+
+
 module.exports = {
     categoryImgMoveFunc,
     tempImageRemove,
     categoryDeleteFunction,
     productImgMoveFunc,
-    productDeleteFunction
+    productDeleteFunction,
+    profleImgMoveFunc,
+    profileDeleteFunction
 }

@@ -2,10 +2,12 @@ const { responseReturn } = require("../utiles/response");
 const formidable = require('formidable');
 const validator = require('validator');
 const userModel = require('../models/userModel');
+const profileModel = require('../models/profileModel');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const bcrpty = require('bcrypt');
 const { createToken } = require("../utiles/tokenCreate");
+const { profleImgMoveFunc, profileDeleteFunction } = require("../utiles/imageFile");
 const cloudinary = require('cloudinary').v2
 
 
@@ -179,6 +181,7 @@ class authController {
     }
 
 
+
     // user_login
     user_login = async (req, res) => {
         const { email, password } = req.body;
@@ -239,6 +242,89 @@ class authController {
 
     }
 
+
+
+    // add_customer_profile
+    add_customer_profile = async (req, res) => {
+        const { adminId } = req;
+        const profileImage = req.file.filename;
+        const { shopName, address, mobile } = req.body;
+
+        try {
+
+            if (!shopName || !address || !mobile || !profileImage || !adminId) {
+                responseReturn(res, 200, { error: "All field is rquired !" })
+            } else {
+
+                const profile = await profileModel.create({
+                    adminId,
+                    shopName,
+                    address,
+                    mobile,
+                    profileImage
+                });
+
+                if (profile) {
+                    await userModel.findByIdAndUpdate(adminId, {
+                        profileStatus: true
+                    });
+
+                    profleImgMoveFunc();
+                }
+
+                responseReturn(res, 200, { message: "Create your profile" })
+
+            }
+
+        } catch (error) {
+            responseReturn(res, 500, { error: error.message })
+        }
+    }
+
+
+
+    // get_customer_profile
+    get_customer_profile = async (req, res) => {
+        const { adminId } = req;
+        try {
+            const profile = await profileModel.findOne({ adminId });
+            responseReturn(res, 200, { profile })
+        } catch (error) {
+            responseReturn(res, 500, { error: error.message })
+        }
+    }
+
+
+
+    // update_customer_profile
+    update_customer_profile = async (req, res) => {
+        const { adminId } = req;
+        const { shopName, address, mobile, oldImage } = req.body;
+        const profileImage = req.file ? req.file.filename : oldImage;
+
+        try {
+
+            await profileModel.findOneAndUpdate({ adminId: adminId }, {
+                shopName,
+                address,
+                mobile,
+                profileImage
+            }, { new: true })
+
+            profleImgMoveFunc();
+            if (req.file) {
+                profileDeleteFunction(oldImage)
+            }
+
+            responseReturn(res, 200, { message: "Profile update successfully" });
+
+        } catch (error) {
+            responseReturn(res, 500, { error: error.message })
+        }
+
+    }
+
 }
+
 
 module.exports = new authController();

@@ -7,7 +7,6 @@ import EditCalendarOutlinedIcon from '@mui/icons-material/EditCalendarOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Pagination from '../Pagination';
 import { PropagateLoader } from 'react-spinners';
-import { ClipLoader } from 'react-spinners';
 import { clipLoaderStyle, overrideStyle } from '../../utils/utils';
 import { BsImage } from 'react-icons/bs';
 import ImageCropping from '../../utils/ImageCropping';

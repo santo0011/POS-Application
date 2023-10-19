@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import Cart from './components/cart/Cart';
 import Bill from './pages/Bill';
 import Customer from './pages/Customer';
+import Profile from './components/profile/Profile';
 
 
 const App = () => {
@@ -34,6 +35,8 @@ const App = () => {
 
                     <Route path='bills' element={<Bill />} />
                     <Route path='customers' element={<Customer />} />
+
+                    <Route path='profile' element={<Profile />} />
 
                 </Route>
 
