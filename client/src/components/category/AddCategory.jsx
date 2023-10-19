@@ -18,6 +18,7 @@ import { base_url } from '../../api/api';
 import { confirmMessagge } from '../../utils/aleartFunc';
 
 
+
 const AddCategory = () => {
 
     const dispatch = useDispatch();
@@ -127,6 +128,7 @@ const AddCategory = () => {
     }, [errorMessage, successMessage])
 
 
+
     useEffect(() => {
         if (cateSlug) {
             setCateName(editCategory.categoryName)
@@ -159,67 +161,60 @@ const AddCategory = () => {
                     <div className="row">
                         <div className="col-lg-8">
 
+                            <div className='d-flex align-items-center p-2' style={{ backgroundColor: "#fff" }}>
+                                <h5 className="">All Category ({categoryCount && categoryCount})</h5>
+                                <input className='searchInput' value={searchValue} onChange={(e) => setSearchValue(e.target.value)} type="text" placeholder='Search' />
+                            </div>
+                            <p></p>
+
                             {
-                                allCategory.length > 0 || !loader ?
-                                    <div>
-
-                                        <div className='d-flex align-items-center p-2' style={{ backgroundColor: "#fff" }}>
-                                            <h5 className="">All Categorys</h5>
-                                            <input className='searchInput' value={searchValue} onChange={(e) => setSearchValue(e.target.value)} type="text" placeholder='Search' />
-                                        </div>
-                                        <p></p>
-
+                                allCategory.length > 0 ? <table class="table" style={{ textAlign: "center" }}>
+                                    <thead>
+                                        <tr className=''>
+                                            <th scope="col">No</th>
+                                            <th style={{ textAlign: 'left' }} scope="col">Image</th>
+                                            <th style={{ textAlign: 'left' }} scope="col">Name</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                         {
-                                            allCategory.length > 0 ? <table class="table" style={{ textAlign: "center" }}>
-                                                <thead>
-                                                    <tr className=''>
-                                                        <th scope="col">No</th>
-                                                        <th style={{ textAlign: 'left' }} scope="col">Image</th>
-                                                        <th style={{ textAlign: 'left' }} scope="col">Name</th>
-                                                        <th scope="col">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {
-                                                        allCategory && allCategory?.map((c, i) => {
-                                                            return <tr>
-                                                                <th scope="row">{i + 1 + (currentPage - 1) * parPage}</th>
+                                            allCategory && allCategory?.map((c, i) => {
+                                                return <tr>
+                                                    <th scope="row">{i + 1 + (currentPage - 1) * parPage}</th>
 
-                                                                <td style={{ textAlign: 'left' }}>
-                                                                    <img className='productImgStyle' src={`${base_url}/uploads/categoryImg/${c?.categoryImage}`} alt="img" />
-                                                                </td>
-                                                                <td style={{ textAlign: 'left' }}>{c.categoryName}</td>
-                                                                <td>
-                                                                    <span title='edit'>
-                                                                        <Link to={`/edit-category/${c._id}`}>
-                                                                            <EditCalendarOutlinedIcon style={{ color: "green", fontSize: "22px", cursor: 'pointer', marginRight: "6px" }} />
-                                                                        </Link>
-                                                                    </span>
-                                                                    <span title='delete' onClick={() => delete_category_func(c._id)}>
-                                                                        <DeleteOutlineOutlinedIcon style={{ color: "red", fontSize: "24px", cursor: 'pointer', marginLeft: "6px" }} />
-                                                                    </span>
-                                                                </td>
-                                                            </tr>
-                                                        })
-                                                    }
-
-                                                </tbody>
-                                            </table> : <h4 style={{ textAlign: "center", paddingTop: "60px" }}> Category not found !</h4>
+                                                    <td style={{ textAlign: 'left' }}>
+                                                        <img className='productImgStyle' src={`${base_url}/uploads/categoryImg/${c?.categoryImage}`} alt="img" />
+                                                    </td>
+                                                    <td style={{ textAlign: 'left' }}>{c.categoryName}</td>
+                                                    <td>
+                                                        <span title='edit'>
+                                                            <Link to={`/edit-category/${c._id}`}>
+                                                                <EditCalendarOutlinedIcon style={{ color: "green", fontSize: "22px", cursor: 'pointer', marginRight: "6px" }} />
+                                                            </Link>
+                                                        </span>
+                                                        <span title='delete' onClick={() => delete_category_func(c._id)}>
+                                                            <DeleteOutlineOutlinedIcon style={{ color: "red", fontSize: "24px", cursor: 'pointer', marginLeft: "6px" }} />
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            })
                                         }
 
+                                    </tbody>
+                                </table> : <h4 style={{ textAlign: "center", paddingTop: "60px" }}> Category not found !</h4>
+                            }
 
-                                        {
-                                            categoryCount >= parPage ?
-                                                <Pagination
-                                                    pageNumber={currentPage}
-                                                    setPageNumber={setCurrentPage}
-                                                    totalItem={categoryCount}
-                                                    parPage={parPage}
-                                                    showItem={Math.floor(categoryCount / parPage)}
-                                                /> : ''
-                                        }
 
-                                    </div> : <ClipLoader color="#000" size={65} cssOverride={clipLoaderStyle} />
+                            {
+                                categoryCount >= parPage ?
+                                    <Pagination
+                                        pageNumber={currentPage}
+                                        setPageNumber={setCurrentPage}
+                                        totalItem={categoryCount}
+                                        parPage={parPage}
+                                        showItem={Math.floor(categoryCount / parPage)}
+                                    /> : ''
                             }
 
 
@@ -252,7 +247,7 @@ const AddCategory = () => {
                                             for="image"
                                         >
                                             {croppedImage ? (
-                                                <div className='d-flex justify-content-center align-items-center' style={{ width: "100%", height: "180px" }} >
+                                                <div className='d-flex justify-content-center align-items-center' style={{ width: "100%", height: "200px" }} >
                                                     <img style={{ height: "100%", width: "auto" }} src={croppedImage} />
                                                 </div>
                                             ) : (

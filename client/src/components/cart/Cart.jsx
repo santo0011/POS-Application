@@ -68,41 +68,44 @@ const Cart = () => {
                                 <h5 className="">Total cart porduct ({card_product_count && card_product_count})</h5>
                             </div>
 
-                            <div style={{ height: "450px", overflowY: "auto" }}>
-                                {
-                                    cart_products && cart_products?.map((c, i) => {
-                                        return <div key={i} className='my-3 p-3 d-flex' style={{ backgroundColor: "#fff" }}>
+                            {
+                                cart_products.length > 0 ?
+                                    <div style={{ height: "450px", overflowY: "auto" }}>
+                                        {
+                                            cart_products && cart_products?.map((c, i) => {
+                                                return <div key={i} className='my-3 p-3 d-flex' style={{ backgroundColor: "#fff" }}>
 
-                                            <div style={{ height: "90px" }}>
-                                                <img style={{ height: "100%", width: "100px", borderRadius: "5px" }} src={`${base_url}/uploads/productImg/${c.products[0]?.productImage}`} alt="productImage" />
-                                            </div>
-                                            <div className='px-3' style={{ display: 'flex', flexDirection: 'column', justifyContent: "center" }}>
-                                                <h6>{c.products[0]?.product}</h6>
-                                                <h6>Price : ₹ {c.quantity * c.products[0]?.price}</h6>
+                                                    <div style={{ height: "90px" }}>
+                                                        <img style={{ height: "100%", width: "100px", borderRadius: "5px" }} src={`${base_url}/uploads/productImg/${c.products[0]?.productImage}`} alt="productImage" />
+                                                    </div>
+                                                    <div className='px-3' style={{ display: 'flex', flexDirection: 'column', justifyContent: "center" }}>
+                                                        <h6>{c.products[0]?.product}</h6>
+                                                        <h6>Price : ₹ {c.quantity * c.products[0]?.price}</h6>
 
-                                                <div className='d-flex cartSpan'>
-                                                    <span onClick={() => dec(c.quantity, c._id)}>
-                                                        <AiOutlineMinus />
-                                                    </span>
-                                                    <span>
-                                                        <p>{c.quantity}</p>
-                                                    </span>
-                                                    <span onClick={() => inc(c.quantity, c._id)}>
-                                                        <AiOutlinePlus />
-                                                    </span>
+                                                        <div className='d-flex cartSpan'>
+                                                            <span onClick={() => dec(c.quantity, c._id)}>
+                                                                <AiOutlineMinus />
+                                                            </span>
+                                                            <span>
+                                                                <p>{c.quantity}</p>
+                                                            </span>
+                                                            <span onClick={() => inc(c.quantity, c._id)}>
+                                                                <AiOutlinePlus />
+                                                            </span>
 
-                                                    <div className='cartBtn'>
-                                                        <p onClick={() => remove_cart(c._id)}>Remove</p>
+                                                            <div className='cartBtn'>
+                                                                <p onClick={() => remove_cart(c._id)}>Remove</p>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
+                                            }
 
-                                            </div>
-                                        </div>
-                                    }
-
-                                    )
-                                }
-                            </div>
+                                            )
+                                        }
+                                    </div> : <h4 style={{ textAlign: "center", paddingTop: "60px" }}> Your cart is empty !</h4>
+                            }
 
                         </div>
                         <div className="col-lg-5">

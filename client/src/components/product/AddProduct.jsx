@@ -3,26 +3,27 @@ import Layout from '../layout/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { get_all_category } from '../../store/Reducers/categoryReducer';
-import { add_product, messageClear } from '../../store/Reducers/productAddReducer';
+import { add_product, edit_product, messageClear, update_product } from '../../store/Reducers/productAddReducer';
 import toast from "react-hot-toast";
 import { PropagateLoader } from 'react-spinners';
 import { overrideStyle } from '../../utils/utils';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
+import { base_url } from '../../api/api';
 
 
 
 const AddProduct = () => {
 
-    const cateSlug = false;
+    const { productslug } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const { allCategory } = useSelector(state => state.category);
-    const { loader, successMessage, errorMessage } = useSelector(state => state.product);
+    const { loader, successMessage, errorMessage, editProduct } = useSelector(state => state.product);
 
     const [options, setOptions] = useState([]);
-    const [showImage, setShowImage] = useState("")
+    const [showImage, setShowImage] = useState("");
+    const [oldImage, setOldImage] = useState("");
 
     const [state, setState] = useState({
         product: "",
@@ -30,6 +31,8 @@ const AddProduct = () => {
         category: '',
         image: ''
     });
+
+
 
     // imageHandle
     const selectOption = (e) => {
@@ -78,7 +81,7 @@ const AddProduct = () => {
 
         const { product, price, category, image } = state;
 
-        if (!product || !price || !category || !image) {
+        if (!product || !price || !category || !showImage) {
             toast.error("All field is required !")
         } else {
             const formData = new FormData()
@@ -87,11 +90,48 @@ const AddProduct = () => {
             formData.append('price', price)
             formData.append('category', category)
             formData.append('productImage', image)
+            formData.append('oldImage', oldImage ? oldImage : '')
+            formData.append('id', productslug ? productslug : '')
 
-            dispatch(add_product(formData))
+            if (!productslug) {
+                dispatch(add_product(formData))
+            } else {
+                dispatch(update_product(formData))
+            }
+
         }
 
     }
+
+
+    useEffect(() => {
+
+        if (productslug) {
+            setState({
+                ...state,
+                product: editProduct.product,
+                price: editProduct.price,
+                category: {
+                    value: editProduct.category,
+                    label: editProduct.category
+                }
+            });
+            setShowImage(`${base_url}/uploads/productImg/${editProduct.productImage}`);
+            setOldImage(editProduct.productImage)
+        } else {
+            setState({ product: '', price: '', image: '' });
+            setShowImage('')
+        }
+
+    }, [productslug, editProduct])
+
+
+    // edit data
+    useEffect(() => {
+        if (productslug) {
+            dispatch(edit_product(productslug))
+        }
+    }, [productslug])
 
 
     useEffect(() => {
@@ -123,7 +163,7 @@ const AddProduct = () => {
     return (
         <Layout>
             <div className='m-3'>
-                <h5 className="p-3" style={{ backgroundColor: "#fff" }}>{cateSlug ? "Edit Product" : 'Add Product'}</h5>
+                <h5 className="p-3" style={{ backgroundColor: "#fff" }}>{productslug ? "Edit Product" : 'Add Product'}</h5>
 
                 <div className='mt-4' style={{ backgroundColor: "#fff" }}>
 
@@ -134,6 +174,7 @@ const AddProduct = () => {
                                 <label for="name" className="form-label">Product name</label>
                                 <input
                                     onChange={inputHendle}
+                                    value={state.product}
                                     className="form-control"
                                     type="text"
                                     id="name"
@@ -145,6 +186,7 @@ const AddProduct = () => {
                                 <label for="name" className="form-label">Price</label>
                                 <input
                                     onChange={inputHendle}
+                                    value={state.price}
                                     className="form-control"
                                     type="number"
                                     id="name"
@@ -165,6 +207,7 @@ const AddProduct = () => {
                                     onChange={selectOption}
                                     options={options}
                                 />
+
 
                             </div>
                             <div style={{ width: "90%" }}>
@@ -199,7 +242,7 @@ const AddProduct = () => {
                                         cssOverride={overrideStyle}
                                     />
                                 ) : (
-                                    <> {cateSlug ? 'Edit Product' : 'Add Product'}</>
+                                    <> {productslug ? 'Edit Product' : 'Add Product'}</>
                                 )}
                             </button>
                         </div>

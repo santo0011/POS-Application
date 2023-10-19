@@ -29,6 +29,7 @@ const App = () => {
                     <Route path='edit-category/:cateSlug' element={<AddCategory />} />
                     <Route path='all-product' element={<AllProduct />} />
                     <Route path='add-product' element={<AddProduct />} />
+                    <Route path='edit-product/:productslug' element={<AddProduct />} />
                     <Route path='cart-page' element={<Cart />} />
 
                     <Route path='bills' element={<Bill />} />

@@ -17,18 +17,40 @@ const CartDetails = ({ card_product_count, price, cart_products }) => {
 
     const [state, setState] = useState({
         email: "",
-        totilePrice: "",
         customerName: "",
         mobileNum: ""
     });
 
 
+    const [discount, setDiscount] = useState();
+    const [totilePrice, setTotalPrice] = useState();
+
+
+    // discountOnchange
+    const discountOnchange = (e) => {
+        setDiscount(e.target.value)
+    }
+
+    // totilePriceOnchange
+    const totilePriceOnchange = (e) => {
+        setTotalPrice(e.target.value)
+    }
+
+
     useEffect(() => {
-        setState({
-            ...state,
-            totilePrice: price
-        })
-    }, [price]);
+        // calculatedTotalPrice
+        const calculatedTotalPrice = discount > 0 ? (price - (price * discount) / 100).toFixed(2) : price;
+        setTotalPrice(calculatedTotalPrice);
+
+    }, [price,discount]);
+
+
+    // useEffect(() => {
+    //     const discountCal = totilePrice > 0 ? (((price - totilePrice) / price) * 100).toFixed(2) : discount;
+    //     setDiscount(discountCal);
+
+    // }, [totilePrice])
+
 
 
     // inputHendle
@@ -44,7 +66,7 @@ const CartDetails = ({ card_product_count, price, cart_products }) => {
     const create_bill = (e) => {
         e.preventDefault();
 
-        const { email, totilePrice, customerName, mobileNum } = state;
+        const { email, customerName, mobileNum } = state;
 
         if (card_product_count < 1) {
             toast.error("Your cart is empty !")
@@ -61,7 +83,6 @@ const CartDetails = ({ card_product_count, price, cart_products }) => {
         }
 
     }
-
 
 
     useEffect(() => {
@@ -86,22 +107,24 @@ const CartDetails = ({ card_product_count, price, cart_products }) => {
                 <hr className='hrStyle' />
 
                 <div className='my-2'>
-                    <label for="name" className="form-label">Customer name</label>
-                    <input type="text" onChange={inputHendle} value={state.customerName} name='customerName' required placeholder='Enter costomer name' className="form-control" />
+                    <label for="email" className="form-label">Email</label>
+                    <input type="email" onChange={inputHendle} value={state.email} name='email' placeholder='Enter email' className="form-control" />
                 </div>
 
                 <div className='d-flex'>
                     <div style={{ marginRight: "5px" }}>
+                        <label for="name" className="form-label">Customer name</label>
+                        <input type="text" onChange={inputHendle} value={state.customerName} name='customerName' required placeholder='Enter costomer name' className="form-control" />
+
+                    </div>
+                    <div>
+
                         <label for="number" className="form-label">Mobile number</label>
                         <input type="number" onChange={inputHendle} value={state.mobileNum} name='mobileNum' required placeholder='Enter number' className="form-control" />
 
                     </div>
-                    <div>
-                        <label for="email" className="form-label">Email</label>
-                        <input type="email" onChange={inputHendle} value={state.email} name='email' placeholder='Enter email' className="form-control" />
-
-                    </div>
                 </div>
+
 
                 <div className='d-flex my-2'>
                     <div style={{ marginRight: "5px" }}>
@@ -110,10 +133,15 @@ const CartDetails = ({ card_product_count, price, cart_products }) => {
                     </div>
                     <div >
                         <label for="name" className="form-label">Total price</label>
-                        <input type="number" onChange={inputHendle} value={state.totilePrice} name='totilePrice' className="form-control" />
+                        <input type="number" onChange={totilePriceOnchange} value={totilePrice} name='totilePrice' className="form-control" />
 
                     </div>
 
+                </div>
+
+                <div className='my-2'>
+                    <label for="name" className="form-label">Discount (%)</label>
+                    <input type="number" onChange={discountOnchange} value={discount} placeholder='0' name='customerName' className="form-control" />
                 </div>
 
 

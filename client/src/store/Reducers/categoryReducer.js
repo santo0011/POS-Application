@@ -105,13 +105,9 @@ export const categoryReducer = createSlice({
             state.allCategory = [...state.allCategory, payload.category]
             state.categoryCount = state.categoryCount + 1
         },
-        [get_all_category.pending]: (state, _) => {
-            state.loader = true
-        },
         [get_all_category.fulfilled]: (state, { payload }) => {
             state.allCategory = payload.allCategory
             state.categoryCount = payload.categoryCount
-            state.loader = false
         },
         [delete_category.fulfilled]: (state, { payload }) => {
             state.successMessage = payload.message

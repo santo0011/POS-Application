@@ -14,12 +14,17 @@
 }
 
 /*     background: rgb(237, 237, 237);
+
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        background: linear-gradient(150deg, rgba(202, 208, 213, 1) 12%, rgba(248, 249, 250, 1) 63%);
+
+
  */
 
 .billContainer {
-    width: 450px;
+    width: 100%;
     height: auto;
-    background: linear-gradient(150deg, rgba(202, 208, 213, 1) 12%, rgba(248, 249, 250, 1) 63%);
+    background: rgb(237, 237, 237);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,7 +39,6 @@
     height: 100%;
     background: #fff;
     border-radius: 5px;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
     padding: 10px 20px;
 }
 
@@ -63,6 +67,7 @@
 .hrStyle {
     margin: 10px 0 !important;
 }
+
 .hrStyle2 {
     margin: 4px 0 !important;
 }

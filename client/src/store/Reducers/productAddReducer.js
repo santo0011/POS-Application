@@ -18,7 +18,6 @@ export const add_product = createAsyncThunk(
 )
 
 
-
 // get_products
 export const get_products = createAsyncThunk(
     'product/get_products',
@@ -34,20 +33,73 @@ export const get_products = createAsyncThunk(
 
 
 
+// delete_product
+export const delete_product = createAsyncThunk(
+    'product/delete_product',
+    async (id, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.delete(`/delete-product/${id}`);
+            return fulfillWithValue(data)
+        } catch (error) {
+
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+
+// edit_product
+export const edit_product = createAsyncThunk(
+    'product/edit_product',
+    async (id, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.get(`/edit-product/${id}`);
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+
+
+// update_product
+export const update_product = createAsyncThunk(
+    'product/update_product',
+    async (info, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.put('/update-product', info);
+
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+
+
 export const productAddReducer = createSlice({
     name: "product",
     initialState: {
         errorMessage: '',
         successMessage: '',
+        error: "",
+        message: "",
         loader: false,
         allProduct: [],
-        productCount: 0
+        productCount: 0,
+        editProduct: {}
     },
     reducers: {
         messageClear: (state, _) => {
             state.errorMessage = ''
             state.successMessage = ''
-        }
+        },
+        clearMessage: (state, _) => {
+            state.error = ''
+            state.message = ''
+        },
     },
     extraReducers: {
         [add_product.pending]: (state, _) => {
@@ -69,11 +121,23 @@ export const productAddReducer = createSlice({
             state.allProduct = payload.allProduct
             state.productCount = payload.productCount
         },
+        [delete_product.rejected]: (state, { payload }) => {
+            state.error = payload.error
+        },
+        [delete_product.fulfilled]: (state, { payload }) => {
+            state.message = payload.message
+        },
+        [edit_product.fulfilled]: (state, { payload }) => {
+            state.editProduct = payload.editProduct
+        },
+        [update_product.fulfilled]: (state, { payload }) => {
+            state.successMessage = payload.message
+        }
     }
 
 });
 
 
 
-export const { messageClear } = productAddReducer.actions;
+export const { messageClear, clearMessage } = productAddReducer.actions;
 export default productAddReducer.reducer;

@@ -8,5 +8,12 @@ router.post('/add-product', admin_middleware, upload.single('productImage'), pro
 
 router.get('/get-products', admin_middleware, productController.get_products);
 
+router.delete('/delete-product/:pId', admin_middleware, productController.delete_product);
+
+router.get('/edit-product/:pId', admin_middleware, productController.edit_product);
+
+router.put('/update-product', admin_middleware,upload.single('productImage'), productController.update_product);
+
+
 
 module.exports = router;
