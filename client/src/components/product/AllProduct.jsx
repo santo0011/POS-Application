@@ -12,6 +12,7 @@ import { base_url } from '../../api/api';
 import { add_to_cart, messageClear } from '../../store/Reducers/cartReducer';
 import toast from "react-hot-toast";
 import { confirmMessagge } from '../../utils/aleartFunc';
+import Select from 'react-select';
 
 
 
@@ -29,6 +30,35 @@ const AllProduct = () => {
     const [searchValue, setSearchValue] = useState('');
     const [currentPage, setCurrentPage] = useState(1)
     const [parPage, setParPage] = useState(6)
+    const [findCate, setFindCate] = useState('')
+
+
+    // for category
+    const [selectedOption, setSelectedOption] = useState({ value: "", label: "Find by category" });
+    const { allCategory } = useSelector(state => state.category);
+
+
+    // imageHandle
+    const selectOption = (e) => {
+        setFindCate(e.value)
+    }
+
+    useEffect(() => {
+        if (allCategory) {
+            const categoryOptions = allCategory.map((c) => ({
+                value: c.categoryName,
+                label: c.categoryName
+            }));
+
+            const defaultValue = {
+                value: '',
+                label: 'All'
+            };
+
+            const allOptions = [defaultValue, ...categoryOptions];
+            setSelectedOption(allOptions);
+        }
+    }, [allCategory]);
 
 
     // add_to_cart
@@ -95,20 +125,26 @@ const AllProduct = () => {
         const obj = {
             parPage: parseInt(parPage),
             page: parseInt(currentPage),
-            searchValue
+            searchValue,
+            findCate
         }
         dispatch(get_products(obj))
-    }, [searchValue, currentPage, parPage])
+    }, [searchValue, currentPage, parPage, findCate])
+
 
     return (
         <Layout>
             <div className='m-3'>
                 <div className='d-flex align-items-center py-2 px-4' style={{ backgroundColor: "#fff", justifyContent: 'space-between' }}>
                     <h5 className="">All Products ({productCount && productCount})</h5>
-                    <input className='productSearch' value={searchValue} onChange={(e) => setSearchValue(e.target.value)} type="text" placeholder='Search' />
+                    <input style={{ width: "40%" }} className='productSearch' value={searchValue} onChange={(e) => setSearchValue(e.target.value)} type="text" placeholder='Search' />
 
-                    <div>
-                        <Link to='/add-product' className='btn btn-dark'>Add Product</Link>
+                    <div style={{ width: "20%" }}>
+                        <Select
+                            defaultValue={selectedOption}
+                            onChange={selectOption}
+                            options={selectedOption}
+                        />
                     </div>
 
                 </div>

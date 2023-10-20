@@ -33,6 +33,21 @@ export const get_all_invoice = createAsyncThunk(
 
 
 
+// get_amount
+export const get_amount = createAsyncThunk(
+    'invoice/get_amount',
+    async ({ year, month, monthLength }, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.get(`/get-amount?year=${year}&&month=${month}&&monthLength=${monthLength}`);
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+
+
 export const invoiceReducer = createSlice({
     name: 'invoice',
     initialState: {
@@ -40,7 +55,9 @@ export const invoiceReducer = createSlice({
         errorMessage: '',
         successMessage: '',
         allInvoice: [],
-        invoiceCount: 0
+        invoiceCount: 0,
+        totalAmountPerDay: [],
+        totalAmount: 0
     },
     reducers: {
         messageClear: (state, _) => {
@@ -64,6 +81,10 @@ export const invoiceReducer = createSlice({
             state.allInvoice = payload.allInvoice
             state.invoiceCount = payload.invoiceCount
         },
+        [get_amount.fulfilled]: (state, { payload }) => {
+            state.totalAmountPerDay = payload.totalAmountPerDay
+            state.totalAmount = payload.totalAmount
+        }
 
     }
 });

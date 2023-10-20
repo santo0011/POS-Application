@@ -1,3 +1,52 @@
+.selectMonth select {
+    margin: 0 5px;
+    outline: none;
+    padding: 3px;
+    border-radius: 4px;
+    border: none;
+    border: 1px solid #878787;
+}
+
+.selectMonth label {
+    font-weight: 700;
+}
+
+.selectYear label {
+    font-weight: 700;
+}
+.selectYear{
+    margin-left: 10px;
+}
+
+.selectYear select {
+    margin: 0 5px;
+    outline: none;
+    padding: 3px;
+    border-radius: 4px;
+    border: none;
+    border: 1px solid #878787;
+    width: 130px;
+}
+
+.chartAmount {
+    font-size: 18px;
+    margin-right: 10px;
+    font-weight: 700;
+    margin-left: auto;
+}
+
+.chartAmount span {
+    color: green;
+}
+
+
+.apexcharts-toolbar {
+    display: none !important;
+}
+
+
+
+
 .invoiceHead {
     font-size: 14px;
     font-weight: 400px !important;
@@ -49,6 +98,7 @@
 .billHeader img {
     width: 40px;
     height: 40px;
+    border-radius: 50%;
 }
 
 

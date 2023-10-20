@@ -36,7 +36,7 @@ class productController {
     // get_products
     get_products = async (req, res) => {
         const { adminId } = req;
-        const { searchValue, page, parPage } = req.query;
+        const { searchValue, page, parPage, findCate } = req.query;
         const skipPage = parseInt(parPage) * (parseInt(page) - 1);
 
         try {
@@ -65,7 +65,18 @@ class productController {
                 })
 
             } else {
-                const products = await productModel.find({ adminId }).skip(skipPage).limit(parPage).sort({ createdAt: -1 });
+                let products = [];
+                if (findCate) {
+                    products = await productModel.aggregate([
+                        { $match: { adminId, category: findCate } },
+                        { $sort: { createdAt: -1 } },
+                        { $skip: skipPage },
+                        { $limit: 6 }
+                    ]).exec();
+                } else {
+                    products = await productModel.find({ adminId }).skip(skipPage).limit(parPage).sort({ createdAt: -1 });
+                }
+
                 const productCount = await productModel.find({ adminId }).countDocuments();
                 responseReturn(res, 200, {
                     allProduct: products,

@@ -84,6 +84,7 @@ export const get_customer_profile = createAsyncThunk(
     async (_, { rejectWithValue, fulfillWithValue }) => {
         try {
             const { data } = await api.get('/get-customer-profile');
+
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -91,6 +92,20 @@ export const get_customer_profile = createAsyncThunk(
     }
 )
 
+
+// logout
+export const logout = createAsyncThunk(
+    'auth/logout',
+    async (navigate, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.get('/user-logout')
+            localStorage.removeItem('pos_token');
+            navigate('/login')
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
 
 
 const decodeToken = (token) => {
@@ -117,7 +132,8 @@ export const authReducer = createSlice({
         errorMessage: '',
         successMessage: '',
         loader: false,
-        profile: {}
+        profile: {},
+        logoutMessage: ""
     },
     reducers: {
         messageClear: (state, _) => {
@@ -181,6 +197,7 @@ export const authReducer = createSlice({
         [update_customer_profile.fulfilled]: (state, { payload }) => {
             state.successMessage = payload.message
         }
+
     }
 });
 

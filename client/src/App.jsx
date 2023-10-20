@@ -13,9 +13,23 @@ import Cart from './components/cart/Cart';
 import Bill from './pages/Bill';
 import Customer from './pages/Customer';
 import Profile from './components/profile/Profile';
+import { get_all_category } from './store/Reducers/categoryReducer';
 
 
 const App = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const obj = {
+            parPage: '',
+            page: '',
+            searchValue: ''
+        };
+        dispatch(get_all_category(obj))
+
+    }, [dispatch])
+
 
     return (
         <>

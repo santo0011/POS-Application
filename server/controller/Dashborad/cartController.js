@@ -49,7 +49,7 @@ class cartController {
                         as: 'products'
                     }
                 }
-            ]);
+            ]).sort({ createdAt: -1 });
 
             let calculatePrice = 0;
             let card_product_count = 0;

@@ -5,19 +5,29 @@ import { BiShowAlt, BiPrinter } from "react-icons/bi";
 import { HiDocumentDownload } from "react-icons/hi";
 import { MdClear } from "react-icons/md";
 import Pagination from "../components/Pagination";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { get_all_invoice } from "../store/Reducers/invoiceReducer";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
-import { client } from "../api/api";
+import { base_url, client } from "../api/api";
 import { useReactToPrint } from "react-to-print";
 import moment from 'moment';
+import { get_customer_profile } from "../store/Reducers/authReducer";
+import { Navigate } from 'react-router-dom';
+
 
 const Bill = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { allInvoice, invoiceCount } = useSelector((state) => state.invoice);
+  const { profile } = useSelector(state => state.auth);
+
+  if (profile === null) {
+    navigate('/profile')
+  }
+
 
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -62,7 +72,10 @@ const Bill = () => {
     sum += data?.products[i].price * data?.products[i].qty;
   }
 
-  // console.log(data?.products[0].price)
+
+  useEffect(() => {
+    dispatch(get_customer_profile())
+  }, []);
 
   return (
     <Layout>
@@ -156,9 +169,9 @@ const Bill = () => {
         <div className="billContainer">
           <div className="billWrapper" ref={componentRef}>
             <div className="billHeader">
-              <img src={`${client}/logo512.png`} alt="" />
-              <h6>Shanto Shop</h6>
-              <p>Contact : 75840498912 | Nahata, Gopalnagar</p>
+              <img src={`${base_url}/uploads/profileImg/${profile?.profileImage}`} alt="" />
+              <h6>{profile && profile?.shopName}</h6>
+              <p>Contact : {`${profile?.mobile} | ${profile?.address}`}</p>
             </div>
 
             <hr className="hrStyle" />

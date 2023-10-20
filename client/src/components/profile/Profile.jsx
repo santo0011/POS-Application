@@ -95,18 +95,17 @@ const Profile = () => {
 
     }
 
-
-
     useEffect(() => {
+
         setState({
             ...state,
-            shopName: profile.shopName,
-            address: profile.address,
-            mobile: profile.mobile
+            shopName: profile?.shopName,
+            address: profile?.address,
+            mobile: profile?.mobile
         });
 
-        setOldImage(profile.profileImage)
-        setCroppedImage(`${base_url}/uploads/profileImg/${profile.profileImage}`)
+        setOldImage(profile?.profileImage)
+        setCroppedImage(`${base_url}/uploads/profileImg/${profile?.profileImage}`)
 
     }, [profile])
 
@@ -115,8 +114,8 @@ const Profile = () => {
         dispatch(get_customer_profile())
     }, [successMessage])
 
-    // profileImage
 
+    // profileImage
     useEffect(() => {
         if (errorMessage) {
             toast.error(errorMessage)
@@ -128,7 +127,6 @@ const Profile = () => {
         }
 
     }, [successMessage, errorMessage])
-
 
 
     return (
@@ -180,18 +178,19 @@ const Profile = () => {
                                 className="form-label d-flex justify-content-center align-items-center flex-column border"
                                 for="image"
                             >
-                                {croppedImage ? (
-                                    <div className='d-flex justify-content-center align-items-center' style={{ width: "100%", height: "100px" }} >
-                                        <img style={{ height: "100%", width: "auto" }} src={croppedImage} />
-                                    </div>
-                                ) : (
-                                    <>
-                                        <span>
-                                            <BsImage />
-                                        </span>
-                                        <span className='' style={{ height: "100px" }}>Select Image</span>
-                                    </>
-                                )}
+                                {
+                                    croppedImage ? (
+                                        <div className='d-flex justify-content-center align-items-center' style={{ width: "100%", height: "100px" }} >
+                                            <img style={{ height: "100%", width: "auto" }} src={croppedImage} />
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <span>
+                                                <BsImage />
+                                            </span>
+                                            <span className='' style={{ height: "100px" }}>Select Image</span>
+                                        </>
+                                    )}
 
                             </label>
                         </div>

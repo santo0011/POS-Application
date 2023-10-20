@@ -8,6 +8,8 @@ router.post('/create-invoice', admin_middleware, invoiceController.create_invoic
 
 router.get('/get-all-invoice', admin_middleware, invoiceController.get_all_invoice);
 
+router.get('/get-amount', admin_middleware, invoiceController.get_amount);
+
 
 
 module.exports = router;

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./sidebar.scss";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+
+import { Link, useNavigate } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
@@ -18,10 +20,37 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, messageClear } from '../../store/Reducers/authReducer';
 
 
 
 const Sidebar = () => {
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { logoutMessage } = useSelector(state => state.auth);
+
+
+  // logoutFunc
+  const logoutFunc = () => {
+    dispatch(logout(navigate))
+  }
+
+
+  // useEffect(() => {
+
+  //   if (logoutMessage) {
+  //     toast.success(logoutMessage)
+  //     dispatch(messageClear())
+  //     navigate('/login', { replace: true })
+  //   }
+
+  // }, [logoutMessage])
+
+
   return (
     <div className="sidebar">
 
@@ -61,10 +90,16 @@ const Sidebar = () => {
               <span>Category</span>
             </li>
           </Link>
-          <Link to="/all-product" style={{ textDecoration: "none" }}>
+          <Link to="/add-product" style={{ textDecoration: "none" }}>
             <li>
               <AddIcon className="icon" />
-              <span>Product</span>
+              <span>Add Product</span>
+            </li>
+          </Link>
+          <Link to="/all-product" style={{ textDecoration: "none" }}>
+            <li>
+              <FormatListBulletedIcon className="icon" />
+              <span>All Product</span>
             </li>
           </Link>
           <Link to="/cart-page" style={{ textDecoration: "none" }}>
@@ -107,10 +142,12 @@ const Sidebar = () => {
             </li>
           </Link>
 
-          <li>
-            <ExitToAppIcon className="icon" />
-            <span>Logout</span>
-          </li>
+          <span onClick={logoutFunc}>
+            <li>
+              <ExitToAppIcon className="icon" />
+              <span>Logout</span>
+            </li>
+          </span>
         </ul>
 
       </div>

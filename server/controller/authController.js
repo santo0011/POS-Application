@@ -156,6 +156,7 @@ class authController {
                             name: createUser.userName,
                             image: createUser.image,
                             role: createUser.role,
+                            profileStatus: createUser.profileStatus,
                             loginMethod: createUser.loginMethod,
                             accessStatus: createUser.accessStatus,
                             createdAt: createUser.createdAt
@@ -206,6 +207,7 @@ class authController {
             try {
                 const getUser = await userModel.findOne({ email }).select("+password");
 
+
                 if (getUser) {
                     const matchPassword = await bcrpty.compare(password, getUser.password);
 
@@ -217,6 +219,7 @@ class authController {
                             name: getUser.userName,
                             image: getUser.image,
                             role: getUser.role,
+                            profileStatus: getUser.profileStatus,
                             loginMethod: getUser.loginMethod,
                             accessStatus: getUser.accessStatus,
                             createdAt: getUser.createdAt
@@ -241,6 +244,24 @@ class authController {
         }
 
     }
+
+
+    // logout
+    logout = async (req, res) => {
+        // pos_token
+        try {
+            res.cookie('pos_token', null, {
+                expires: new Date(Date.now()),
+                httpOnly: true
+            });
+
+            responseReturn(res, 200, { message: "Logout success" })
+
+        } catch (error) {
+            responseReturn(res, 500, { error: error.message })
+        }
+    }
+
 
 
 

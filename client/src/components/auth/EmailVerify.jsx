@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { messageClear, verify_email } from '../../store/Reducers/authReducer';
 import { Link, useNavigate } from 'react-router-dom';
 import "./register.scss";
+import { PropagateLoader } from 'react-spinners';
+import { overrideStyle } from '../../utils/utils';
+
 
 
 const EmailVerify = () => {
@@ -47,17 +50,14 @@ const EmailVerify = () => {
                     <p></p>
 
                     <div className="form-group">
-                        {
-                            loader ? <button className="btn btn-block">
-                                <div className="spinner">
-                                    <div className="spinner1"></div>
-                                    <div className="spinner2"></div>
-                                    <div className="spinner3"></div>
-                                </div>
-                            </button> : <button onClick={sendOtp} className="btn btn-block">
-                                Register
-                            </button>
-                        }
+
+
+                        <button disabled={loader ? true : false} onClick={sendOtp} className="btn btn-block">
+                            {
+                                loader ? <PropagateLoader color="#fff" cssOverride={overrideStyle} /> : 'Register'
+                            }
+                        </button>
+
                     </div>
                     <div className="form-group">
                         <div className="login-page">

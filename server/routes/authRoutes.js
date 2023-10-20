@@ -10,6 +10,8 @@ router.post('/verify-email', authController.verify_email)
 
 router.post('/user-login', authController.user_login);
 
+router.get('/user-logout', authController.logout);
+
 
 // profie router
 router.post('/add-customer-profile', admin_middleware, upload.single('profileImage'), authController.add_customer_profile);

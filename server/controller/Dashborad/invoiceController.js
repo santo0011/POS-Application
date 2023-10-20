@@ -111,6 +111,56 @@ class invoiceController {
 
     }
 
+
+    // get_amount
+    get_amount = async (req, res) => {
+        const { adminId } = req;
+        const { year, month, monthLength } = req.query;
+
+        try {
+            const startDate = new Date(parseInt(year), parseInt(month) - 1, 1);
+            const endDate = new Date(parseInt(year), parseInt(month), 0);
+            const invoices = await invoiceModel.aggregate([
+                {
+                    $match: {
+                        adminId,
+                        createdAt: { $gte: startDate, $lte: endDate }
+                    }
+                }
+            ]);
+
+            const monthInvoice = Array.from({ length: monthLength ? parseInt(monthLength) : parseInt(monthLength) }, (_, day) => {
+                const date = new Date(parseInt(year), parseInt(month) - 1, day + 1);
+                const invoice = invoices.find(i => i.createdAt.getDate() === date.getDate());
+
+                if (invoice) {
+                    return invoice;
+                } else {
+                    return {}; 
+                }
+            });
+
+            let totalAmount = 0;
+            const totalAmountPerDay = Array(monthLength ? parseInt(monthLength) : parseInt(monthLength)).fill(0); // Initialize an array to hold total amounts per day
+
+            for (const invoice of invoices) {
+                totalAmount += invoice.totilePrice;
+                const day = invoice.createdAt.getDate() - 1; // Subtract 1 to get the zero-based index
+                totalAmountPerDay[day] += invoice.totilePrice;
+            }
+
+            responseReturn(res, 200, {
+                totalAmountPerDay,
+                totalAmount
+            });
+
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+
 }
 
 

@@ -21,9 +21,9 @@ export const add_product = createAsyncThunk(
 // get_products
 export const get_products = createAsyncThunk(
     'product/get_products',
-    async ({ searchValue, page, parPage }, { rejectWithValue, fulfillWithValue }) => {
+    async ({ searchValue, page, parPage, findCate }, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.get(`/get-products?searchValue=${searchValue}&&page=${page}&&parPage=${parPage}`);
+            const { data } = await api.get(`/get-products?searchValue=${searchValue}&&page=${page}&&parPage=${parPage}&&findCate=${findCate}`);
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)

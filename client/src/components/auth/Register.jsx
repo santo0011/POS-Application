@@ -7,6 +7,9 @@ import toast from 'react-hot-toast';
 import "./register.scss";
 import { messageClear, register } from '../../store/Reducers/authReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { overrideStyle } from '../../utils/utils';
+import { PropagateLoader } from 'react-spinners';
+
 
 
 
@@ -123,17 +126,13 @@ const Register = () => {
                             {/* <p>{errorMessage?.image}</p> */}
                         </div>
                         <div className="form-group">
-                            {
-                                loader ? <button className="btn btn-block">
-                                    <div className="spinner">
-                                        <div className="spinner1"></div>
-                                        <div className="spinner2"></div>
-                                        <div className="spinner3"></div>
-                                    </div>
-                                </button> : <button onClick={user_register} className="btn btn-block">
-                                    Register
-                                </button>
-                            }
+
+                            <button disabled={loader ? true : false} onClick={user_register} className="btn btn-block">
+                                {
+                                    loader ? <PropagateLoader color="#fff" cssOverride={overrideStyle} /> : 'Register'
+                                }
+                            </button>
+
                         </div>
                         <div className="form-group">
                             <div className="login-page">

@@ -6,6 +6,9 @@ import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import "./register.scss";
 import { messageClear, user_login } from '../../store/Reducers/authReducer';
+import { PropagateLoader } from 'react-spinners';
+import { overrideStyle } from '../../utils/utils';
+
 
 
 const Login = () => {
@@ -73,17 +76,13 @@ const Login = () => {
                                 {/* <p>{errorMessage?.password}</p> */}
                             </div>
                             <div className="form-group">
-                                {
-                                    loader ? <button className="btn btn-block">
-                                        <div className="spinner">
-                                            <div className="spinner1"></div>
-                                            <div className="spinner2"></div>
-                                            <div className="spinner3"></div>
-                                        </div>
-                                    </button> : <button onClick={login} className="btn btn-block">
-                                        Login
-                                    </button>
-                                }
+
+
+                                <button disabled={loader ? true : false} onClick={login} className="btn btn-block">
+                                    {
+                                        loader ? <PropagateLoader color="#fff" cssOverride={overrideStyle} /> : 'Login'
+                                    }
+                                </button>
 
                             </div>
                         </form>
