@@ -11,5 +11,4 @@ router.get('/get-all-invoice', admin_middleware, invoiceController.get_all_invoi
 router.get('/get-amount', admin_middleware, invoiceController.get_amount);
 
 
-
 module.exports = router;

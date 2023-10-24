@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearMessage, delete_product, get_products } from '../../store/Reducers/productAddReducer';
 import Pagination from '../Pagination';
 import { base_url } from '../../api/api';
-import { add_to_cart, messageClear } from '../../store/Reducers/cartReducer';
+import { add_to_cart, get_cart_products, messageClear } from '../../store/Reducers/cartReducer';
 import toast from "react-hot-toast";
 import { confirmMessagge } from '../../utils/aleartFunc';
 import Select from 'react-select';
@@ -36,6 +36,13 @@ const AllProduct = () => {
     // for category
     const [selectedOption, setSelectedOption] = useState({ value: "", label: "Find by category" });
     const { allCategory } = useSelector(state => state.category);
+
+
+    const { cart_products } = useSelector(state => state.cart);
+
+    useEffect(() => {
+        dispatch(get_cart_products(userInfo.id))
+    }, []);
 
 
     // imageHandle
@@ -153,7 +160,6 @@ const AllProduct = () => {
                     allProduct.length > 0 ?
                         <div style={{ backgroundColor: "#fff" }} className='mt-4'>
 
-
                             <table class="table" style={{ textAlign: "center" }}>
                                 <thead>
                                     <tr className=''>
@@ -177,9 +183,12 @@ const AllProduct = () => {
                                                 </th>
                                                 <th style={{ textAlign: 'left' }}>₹ {p.price}</th>
                                                 <th>
-                                                    <span title='cart' onClick={() => add_cart_product(p._id)}>
-                                                        <AiOutlineShoppingCart style={{ color: "blue", fontSize: "22px" }} />
-                                                    </span>
+                                                    <>
+
+                                                        <span title='cart' onClick={() => add_cart_product(p._id)}>
+                                                            <AiOutlineShoppingCart style={{ color: "blue", fontSize: "22px" }} />
+                                                        </span>
+                                                    </>
                                                 </th>
                                                 <th>
                                                     <span title='edit'>

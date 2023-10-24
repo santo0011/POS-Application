@@ -40,7 +40,7 @@ export const delete_category = createAsyncThunk(
             const { data } = await api.delete(`/delete-category/${id}`);
             return fulfillWithValue(data)
         } catch (error) {
-            console.log(error.message)
+            return rejectWithValue(error.response.data)
         }
     }
 )
@@ -68,7 +68,7 @@ export const update_category = createAsyncThunk(
             const { data } = await api.put(`/update-category`, info);
             return fulfillWithValue(data)
         } catch (error) {
-            console.log(error.message)
+            return rejectWithValue(error.response.data)
         }
     }
 )
@@ -117,6 +117,10 @@ export const categoryReducer = createSlice({
         },
         [update_category.pending]: (state, _) => {
             state.loader = true
+        },
+        [update_category.rejected]: (state, { payload }) => {
+            state.loader = false
+            state.errorMessage = payload.error
         },
         [update_category.fulfilled]: (state, { payload }) => {
             state.successMessage = payload.message

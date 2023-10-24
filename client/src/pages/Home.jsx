@@ -11,7 +11,7 @@ const Home = () => {
     const dispatch = useDispatch();
 
     const [selectedMonth, setSelectedMonth] = useState();
-    const [selectedYear, setSelectedYear] = useState(2023);
+    const [selectedYear, setSelectedYear] = useState();
 
     const [monthLength, setMonthLength] = useState();
 
@@ -69,7 +69,7 @@ const Home = () => {
                     }
                 }
             ]
-        }
+        }   
     };
 
 
@@ -81,7 +81,7 @@ const Home = () => {
 
     const years = [
         '2021', '2022', '2023',
-        '2024', '2025', '2026', '2027', '2028', '2029', '2030'
+        '2024', '2025', '2026'
     ];
 
 
@@ -92,8 +92,7 @@ const Home = () => {
         const month = currentDate.getMonth() + 1;
         const year = currentDate.getFullYear();
         setSelectedMonth(month)
-        /*         setSelectedMonth(year)
-         */
+        setSelectedYear(year)
 
     }, [])
 
@@ -123,7 +122,7 @@ const Home = () => {
     return (
         <Layout>
             <div className="card m-4">
-                <div className="mx-2 my-3 d-flex">
+                <div className="mx-2 mt-3 d-flex">
                     <div className='selectMonth'>
                         <label className="form-label">Select Month : </label>
                         <select
@@ -151,7 +150,7 @@ const Home = () => {
                         </select>
                     </div>
                     <div className='chartAmount'>
-                        <p> Total Amount : <span>₹ {totalAmount}</span></p>
+                        <p> Amount : <span>₹ {totalAmount}</span></p>
                     </div>
                 </div>
 

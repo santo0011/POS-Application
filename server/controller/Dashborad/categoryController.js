@@ -16,7 +16,12 @@ class categoryController {
         } else {
             try {
                 const categorySlug = categoryName.trim().split(' ').join('-');
-                const checkCategory = await categoryModel.findOne({ categorySlug });
+                const checkCategory = await categoryModel.findOne({
+                    $and: [
+                        { adminId: adminId },
+                        { categorySlug: categorySlug }
+                    ]
+                });
 
                 if (checkCategory) {
                     tempImageRemove(categoryImage);
@@ -35,8 +40,8 @@ class categoryController {
             } catch (error) {
                 responseReturn(res, 500, "Server error")
             }
-
         }
+
     }
 
     // category_get

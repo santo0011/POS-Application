@@ -14,8 +14,8 @@ const Navbar = () => {
     <div className="navbar">
       <div className="wrapper">
         <div className="search">
-          <input type="text" placeholder="Search..." />
-          <SearchOutlinedIcon />
+          {/* <input type="text" placeholder="Search..." />
+          <SearchOutlinedIcon /> */}
         </div>
 
         <div className="items">
@@ -36,11 +36,11 @@ const Navbar = () => {
           </div>
           <div className="item">
             <NotificationsNoneOutlinedIcon className="icon" />
-            <div className="counter">1</div>
+            {/* <div className="counter">1</div> */}
           </div>
           <div className="item">
             <ChatBubbleOutlineOutlinedIcon className="icon" />
-            <div className="counter">2</div>
+            {/* <div className="counter">2</div> */}
           </div>
           <div className="item">
             <ListOutlinedIcon className="icon" />

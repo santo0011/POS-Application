@@ -45,6 +45,7 @@ class productController {
                     adminId: adminId,
                     $or: [
                         { product: { $regex: searchValue, $options: 'i' } },
+                        { category: { $regex: searchValue, $options: 'i' } },
                         {
                             $expr: {
                                 $regexMatch: {
