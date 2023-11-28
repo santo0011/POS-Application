@@ -9,7 +9,8 @@ export const register = createAsyncThunk(
     'auth/register',
     async (info, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.post('/user-register', info);
+            const { data } = await api.post('/user-register', info, { withCredentials: true });
+            localStorage.setItem('pos_token', data.token)
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -23,7 +24,7 @@ export const verify_email = createAsyncThunk(
     'auth/verify_email',
     async (otp, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.post('/verify-email', { otp });
+            const { data } = await api.post('/verify-email', { otp }, { withCredentials: true });
             localStorage.setItem('pos_token', data.token)
             return fulfillWithValue(data)
         } catch (error) {
@@ -38,7 +39,7 @@ export const user_login = createAsyncThunk(
     'auth/user_login',
     async (info, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.post('/user-login', info);
+            const { data } = await api.post('/user-login', info, { withCredentials: true });
             localStorage.setItem('pos_token', data.token)
             return fulfillWithValue(data)
         } catch (error) {
@@ -53,7 +54,7 @@ export const add_customer_profile = createAsyncThunk(
     'auth/add_customer_profile',
     async (info, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.post('/add-customer-profile', info);
+            const { data } = await api.post('/add-customer-profile', info, { withCredentials: true });
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -67,7 +68,7 @@ export const update_customer_profile = createAsyncThunk(
     'auth/update_customer_profile',
     async (info, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.put('/update-customer-profile', info);
+            const { data } = await api.put('/update-customer-profile', info, { withCredentials: true });
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -83,7 +84,7 @@ export const get_customer_profile = createAsyncThunk(
     'auth/get_customer_profile',
     async (_, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.get('/get-customer-profile');
+            const { data } = await api.get('/get-customer-profile', { withCredentials: true });
 
             return fulfillWithValue(data)
         } catch (error) {
@@ -98,7 +99,7 @@ export const logout = createAsyncThunk(
     'auth/logout',
     async (navigate, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.get('/user-logout')
+            const { data } = await api.get('/user-logout', { withCredentials: true })
             localStorage.removeItem('pos_token');
             navigate('/login')
         } catch (error) {

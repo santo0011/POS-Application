@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 module.exports.admin_middleware = async (req, res, next) => {
     const { pos_token } = req.cookies;
 
+    // const posToken = req.headers['authorization'];
+
     if (!pos_token) {
         return res.status(409).json({ error: 'Please login first' })
     } else {

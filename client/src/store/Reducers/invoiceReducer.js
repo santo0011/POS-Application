@@ -1,14 +1,14 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/api';
-
+import axios from 'axios';
 
 // create_invoice
 export const create_invoice = createAsyncThunk(
     'invoice/create_invoice',
     async (info, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.post('/create-invoice', info);
+            const { data } = await api.post('/create-invoice', info, { withCredentials: true });
 
             return fulfillWithValue(data)
         } catch (error) {
@@ -23,7 +23,7 @@ export const get_all_invoice = createAsyncThunk(
     'invoice/get_all_invoice',
     async ({ searchValue, page, parPage }, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.get(`/get-all-invoice?searchValue=${searchValue}&&page=${page}&&parPage=${parPage}`);
+            const { data } = await api.get(`/get-all-invoice?searchValue=${searchValue}&&page=${page}&&parPage=${parPage}`, { withCredentials: true });
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -38,7 +38,7 @@ export const get_amount = createAsyncThunk(
     'invoice/get_amount',
     async ({ year, month, monthLength }, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.get(`/get-amount?year=${year}&&month=${month}&&monthLength=${monthLength}`);
+            const { data } = await api.get(`/get-amount?year=${year}&&month=${month}&&monthLength=${monthLength}`, { withCredentials: true });
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)

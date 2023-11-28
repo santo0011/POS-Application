@@ -117,6 +117,8 @@ class invoiceController {
         const { adminId } = req;
         const { year, month, monthLength } = req.query;
 
+        // console.log("adminId", adminId)
+
         try {
             const startDate = new Date(parseInt(year), parseInt(month) - 1, 1);
             const endDate = new Date(parseInt(year), parseInt(month), 0);
@@ -129,16 +131,16 @@ class invoiceController {
                 }
             ]);
 
-            const monthInvoice = Array.from({ length: monthLength ? parseInt(monthLength) : parseInt(monthLength) }, (_, day) => {
-                const date = new Date(parseInt(year), parseInt(month) - 1, day + 1);
-                const invoice = invoices.find(i => i.createdAt.getDate() === date.getDate());
+            // const monthInvoice = Array.from({ length: monthLength ? parseInt(monthLength) : parseInt(monthLength) }, (_, day) => {
+            //     const date = new Date(parseInt(year), parseInt(month) - 1, day + 1);
+            //     const invoice = invoices.find(i => i.createdAt.getDate() === date.getDate());
 
-                if (invoice) {
-                    return invoice;
-                } else {
-                    return {}; 
-                }
-            });
+            //     if (invoice) {
+            //         return invoice;
+            //     } else {
+            //         return {}; 
+            //     }
+            // });
 
             let totalAmount = 0;
             const totalAmountPerDay = Array(monthLength ? parseInt(monthLength) : parseInt(monthLength)).fill(0); // Initialize an array to hold total amounts per day

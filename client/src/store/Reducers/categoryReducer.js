@@ -7,7 +7,7 @@ export const add_category = createAsyncThunk(
     'category/add_category',
     async (info, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.post('/add-category', info);
+            const { data } = await api.post('/add-category', info, { withCredentials: true });
             return fulfillWithValue(data)
         } catch (error) {
 
@@ -23,7 +23,7 @@ export const get_all_category = createAsyncThunk(
     'category/get_all_category',
     async ({ searchValue, page, parPage }, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.get(`/get-category?searchValue=${searchValue}&&page=${page}&&parPage=${parPage}`);
+            const { data } = await api.get(`/get-category?searchValue=${searchValue}&&page=${page}&&parPage=${parPage}`, { withCredentials: true });
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -37,7 +37,7 @@ export const delete_category = createAsyncThunk(
     'category/delete_category',
     async (id, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.delete(`/delete-category/${id}`);
+            const { data } = await api.delete(`/delete-category/${id}`, { withCredentials: true });
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -51,7 +51,7 @@ export const edit_category = createAsyncThunk(
     'category/edit_category',
     async (cateSlug, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.get(`/edit-category/${cateSlug}`);
+            const { data } = await api.get(`/edit-category/${cateSlug}`, { withCredentials: true });
             return fulfillWithValue(data)
         } catch (error) {
             console.log(error.message)
@@ -65,7 +65,7 @@ export const update_category = createAsyncThunk(
     'category/update_category',
     async (info, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.put(`/update-category`, info);
+            const { data } = await api.put(`/update-category`, info, { withCredentials: true });
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)

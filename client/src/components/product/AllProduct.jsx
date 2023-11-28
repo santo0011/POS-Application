@@ -15,7 +15,6 @@ import { confirmMessagge } from '../../utils/aleartFunc';
 import Select from 'react-select';
 
 
-
 const AllProduct = () => {
 
     const dispatch = useDispatch();

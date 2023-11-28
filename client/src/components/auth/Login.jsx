@@ -8,6 +8,7 @@ import "./register.scss";
 import { messageClear, user_login } from '../../store/Reducers/authReducer';
 import { PropagateLoader } from 'react-spinners';
 import { overrideStyle } from '../../utils/utils';
+import { client } from '../../api/api';
 
 
 
@@ -102,7 +103,7 @@ const Login = () => {
                         </div>
                     </div>
                     <div className="image-logo">
-                        <img src="http://localhost:3000/designImage/image4.jpg" alt="img" />
+                        <img src={`${client}/designImage/image4.jpg`} alt="img" />
                     </div>
                 </div>
             </div>

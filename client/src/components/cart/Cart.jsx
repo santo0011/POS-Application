@@ -24,7 +24,6 @@ const Cart = () => {
 
     // incremetnt cart quantity
     const inc = (quantity, card_id) => {
-
         if (quantity >= 10) {
             toast.error("Limit product can be added")
         } else {
@@ -94,7 +93,7 @@ const Cart = () => {
                                                             </span>
 
                                                             <div className='cartBtn'>
-                                                                <p onClick={() => remove_cart(c._id)}>Remove</p>
+                                                                <p type="button" onClick={() => remove_cart(c._id)}>Remove</p>
                                                             </div>
                                                         </div>
 

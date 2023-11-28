@@ -9,6 +9,7 @@ import { messageClear, register } from '../../store/Reducers/authReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { overrideStyle } from '../../utils/utils';
 import { PropagateLoader } from 'react-spinners';
+import { client } from '../../api/api';
 
 
 
@@ -142,10 +143,9 @@ const Register = () => {
                     </form>
                 </div>
                 <div className="image-logo">
-                    <img src="http://localhost:3000/designImage/image4.jpg" alt="" />
+                    <img src={`${client}/designImage/image4.jpg`} alt="img" />
                 </div>
             </div>
-
 
         </div>
     )

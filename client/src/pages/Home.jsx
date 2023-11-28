@@ -18,6 +18,7 @@ const Home = () => {
     const { totalAmountPerDay, totalAmount } = useSelector(state => state.invoice);
 
 
+
     const state = {
         series: [
             {
@@ -69,7 +70,7 @@ const Home = () => {
                     }
                 }
             ]
-        }   
+        }
     };
 
 
@@ -80,15 +81,14 @@ const Home = () => {
     ];
 
     const years = [
-        '2021', '2022', '2023',
-        '2024', '2025', '2026'
+        '2021', '2022', '2023', '2024', '2025', '2026',
+        '2027', '2028', '2029', '2030', '2031', '2032'
     ];
 
 
-
+    //    calculate current month and year
     useEffect(() => {
         const currentDate = new Date();
-
         const month = currentDate.getMonth() + 1;
         const year = currentDate.getFullYear();
         setSelectedMonth(month)
@@ -159,6 +159,7 @@ const Home = () => {
         </Layout>
     );
 };
+
 
 
 export default Home;

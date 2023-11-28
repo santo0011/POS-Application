@@ -7,7 +7,7 @@ export const add_to_cart = createAsyncThunk(
     'cart/add_to_cart',
     async (info, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.post('/add-to-cart', info);
+            const { data } = await api.post('/add-to-cart', info, { withCredentials: true });
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -21,7 +21,7 @@ export const get_cart_products = createAsyncThunk(
     'cart/get_cart_products',
     async (userId, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.get(`/get-cart-product/${userId}`);
+            const { data } = await api.get(`/get-cart-product/${userId}`, { withCredentials: true });
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -35,20 +35,22 @@ export const quantity_inc = createAsyncThunk(
     'cart/quantity_inc',
     async (card_id, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.put(`/quantity-inc/${card_id}`)
-            return fulfillWithValue(data)
+            const { data } = await api.put(`/quantity-inc/${card_id}`, { withCredentials: true });
+            return fulfillWithValue(data);
         } catch (error) {
-            return rejectWithValue(error.response.data)
+            return rejectWithValue(error.response.data);
         }
     }
-)
+);
+
+
 
 // quantity_dec
 export const quantity_dec = createAsyncThunk(
     'cart/quantity_dec',
     async (card_id, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.put(`/quantity-dec/${card_id}`)
+            const { data } = await api.put(`/quantity-dec/${card_id}`, { withCredentials: true })
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -61,7 +63,7 @@ export const remove_form_cart = createAsyncThunk(
     'cart/remove_form_cart',
     async (card_id, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.delete(`/remove-form-cart/${card_id}`)
+            const { data } = await api.delete(`/remove-form-cart/${card_id}`, { withCredentials: true })
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
