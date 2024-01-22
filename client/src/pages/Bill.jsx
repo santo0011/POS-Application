@@ -136,7 +136,7 @@ const Bill = () => {
                           <th className="invoiceList">{k.totalProduct}</th>
                           <th className="invoiceList">₹ {k.totilePrice}</th>
                           <th className="invoiceList">
-                            <span onClick={() => genarateBill(k)}>
+                            <span title="Show Bill" onClick={() => genarateBill(k)}>
                               <BiShowAlt style={{ fontSize: "22px" }} />
                             </span>
                           </th>
