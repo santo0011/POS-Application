@@ -83,6 +83,11 @@ const AllProduct = () => {
 
     // delete_product
     const delete_product_func = async (id) => {
+        const obj = {
+            parPage: parseInt(parPage),
+            page: parseInt(currentPage),
+            searchValue
+        }
         const returnValue = await confirmMessagge();
         if (returnValue) {
             dispatch(delete_product(id))
@@ -105,7 +110,6 @@ const AllProduct = () => {
     }, [successMessage, errorMessage])
 
     useEffect(() => {
-
         const obj = {
             parPage: parseInt(parPage),
             page: parseInt(currentPage),
@@ -117,10 +121,15 @@ const AllProduct = () => {
             dispatch(clearMessage())
         }
         if (message) {
+
+            // console.log("message",message)
+            // console.log("obj",obj)
+
             toast.success(message)
             dispatch(clearMessage())
 
-            dispatch(get_products(obj))
+            window.location.reload();
+            // dispatch(get_products(obj))
         }
 
     }, [message, error])
@@ -134,6 +143,9 @@ const AllProduct = () => {
             searchValue,
             findCate
         }
+
+        console.log("obj", obj)
+
         dispatch(get_products(obj))
     }, [searchValue, currentPage, parPage, findCate])
 
@@ -156,7 +168,7 @@ const AllProduct = () => {
                 </div>
 
                 {
-                    allProduct.length > 0 ?
+                    allProduct?.length > 0 ?
                         <div style={{ backgroundColor: "#fff" }} className='mt-4'>
 
                             <table class="table" style={{ textAlign: "center" }}>

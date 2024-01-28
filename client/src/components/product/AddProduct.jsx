@@ -52,7 +52,6 @@ const AddProduct = () => {
     };
 
 
-
     // imageHandle
     const imageHandle = (e) => {
         if (e.target.files.length !== 0) {
@@ -88,7 +87,7 @@ const AddProduct = () => {
 
             formData.append('product', product)
             formData.append('price', price)
-            formData.append('category', productslug ? category.value : category)
+            formData.append('category', category)
             formData.append('productImage', image)
             formData.append('oldImage', oldImage ? oldImage : '')
             formData.append('id', productslug ? productslug : '')
@@ -111,10 +110,11 @@ const AddProduct = () => {
                 ...state,
                 product: editProduct.product,
                 price: editProduct.price,
-                category: {
-                    value: editProduct.category,
-                    label: editProduct.category
-                }
+                category: editProduct.category
+                // category: {
+                //     value: editProduct.category,
+                //     label: editProduct.category
+                // }
             });
             setShowImage(`${base_url}/uploads/productImg/${editProduct.productImage}`);
             setOldImage(editProduct.productImage)

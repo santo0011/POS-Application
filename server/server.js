@@ -13,12 +13,6 @@ app.use(cors({
 }));
 
 
-// app.use(cors({
-//     origin: 'https://invoicebysanto.netlify.app',
-//     credentials: true
-// }));
-
-
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use("/uploads", express.static("./uploads"));
